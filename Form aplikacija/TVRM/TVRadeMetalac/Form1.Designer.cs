@@ -36,6 +36,12 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabOptions = new System.Windows.Forms.TabPage();
+            this.btnPath = new System.Windows.Forms.Button();
+            this.lbPath = new System.Windows.Forms.Label();
+            this.tbPath = new System.Windows.Forms.TextBox();
+            this.lbDeleteText = new System.Windows.Forms.Label();
+            this.lbMessages = new System.Windows.Forms.ListBox();
+            this.btnApply = new System.Windows.Forms.Button();
             this.tabSendMessage = new System.Windows.Forms.TabPage();
             this.lbDateEnd = new System.Windows.Forms.Label();
             this.lbDateStart = new System.Windows.Forms.Label();
@@ -44,23 +50,21 @@
             this.btnDeleteText = new System.Windows.Forms.Button();
             this.btnSend = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.btnApply = new System.Windows.Forms.Button();
-            this.lbMessages = new System.Windows.Forms.ListBox();
-            this.lbDeleteText = new System.Windows.Forms.Label();
-            this.tbPath = new System.Windows.Forms.TextBox();
-            this.lbPath = new System.Windows.Forms.Label();
-            this.btnPath = new System.Windows.Forms.Button();
+            this.rtbMessage = new System.Windows.Forms.RichTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnNextSong = new System.Windows.Forms.Button();
+            this.btnPlayPause = new System.Windows.Forms.Button();
             this.gbTipoviCasova.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.tabOptions.SuspendLayout();
             this.tabSendMessage.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbMusic
             // 
             this.cbMusic.AutoSize = true;
-            this.cbMusic.Location = new System.Drawing.Point(43, 179);
+            this.cbMusic.Location = new System.Drawing.Point(9, 28);
             this.cbMusic.Name = "cbMusic";
             this.cbMusic.Size = new System.Drawing.Size(60, 17);
             this.cbMusic.TabIndex = 3;
@@ -103,9 +107,9 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(589, 477);
+            this.btnClose.Location = new System.Drawing.Point(589, 497);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(94, 46);
+            this.btnClose.Size = new System.Drawing.Size(94, 26);
             this.btnClose.TabIndex = 7;
             this.btnClose.Text = "Zatvori";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -118,26 +122,76 @@
             this.mainTabControl.Location = new System.Drawing.Point(12, 12);
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;
-            this.mainTabControl.Size = new System.Drawing.Size(671, 459);
+            this.mainTabControl.Size = new System.Drawing.Size(671, 479);
             this.mainTabControl.TabIndex = 13;
             // 
             // tabOptions
             // 
-            this.tabOptions.Controls.Add(this.btnPath);
-            this.tabOptions.Controls.Add(this.lbPath);
-            this.tabOptions.Controls.Add(this.tbPath);
+            this.tabOptions.Controls.Add(this.groupBox1);
             this.tabOptions.Controls.Add(this.lbDeleteText);
             this.tabOptions.Controls.Add(this.lbMessages);
             this.tabOptions.Controls.Add(this.btnApply);
             this.tabOptions.Controls.Add(this.gbTipoviCasova);
-            this.tabOptions.Controls.Add(this.cbMusic);
             this.tabOptions.Location = new System.Drawing.Point(4, 22);
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOptions.Size = new System.Drawing.Size(663, 433);
+            this.tabOptions.Size = new System.Drawing.Size(663, 453);
             this.tabOptions.TabIndex = 0;
-            this.tabOptions.Text = "Konfiguracija";
+            this.tabOptions.Text = "Kontrole";
             this.tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // btnPath
+            // 
+            this.btnPath.Location = new System.Drawing.Point(161, 74);
+            this.btnPath.Name = "btnPath";
+            this.btnPath.Size = new System.Drawing.Size(33, 23);
+            this.btnPath.TabIndex = 9;
+            this.btnPath.Text = "...";
+            this.btnPath.UseVisualStyleBackColor = true;
+            this.btnPath.Click += new System.EventHandler(this.btnPath_Click);
+            // 
+            // lbPath
+            // 
+            this.lbPath.AutoSize = true;
+            this.lbPath.Location = new System.Drawing.Point(6, 58);
+            this.lbPath.Name = "lbPath";
+            this.lbPath.Size = new System.Drawing.Size(155, 13);
+            this.lbPath.TabIndex = 8;
+            this.lbPath.Text = "Putanja do foldera sa pesmama";
+            // 
+            // tbPath
+            // 
+            this.tbPath.Location = new System.Drawing.Point(6, 77);
+            this.tbPath.Name = "tbPath";
+            this.tbPath.Size = new System.Drawing.Size(138, 20);
+            this.tbPath.TabIndex = 7;
+            // 
+            // lbDeleteText
+            // 
+            this.lbDeleteText.AutoSize = true;
+            this.lbDeleteText.Location = new System.Drawing.Point(235, 40);
+            this.lbDeleteText.Name = "lbDeleteText";
+            this.lbDeleteText.Size = new System.Drawing.Size(219, 13);
+            this.lbDeleteText.TabIndex = 6;
+            this.lbDeleteText.Text = "Odaberite obaveštenje koje želite da obrišete";
+            // 
+            // lbMessages
+            // 
+            this.lbMessages.FormattingEnabled = true;
+            this.lbMessages.Location = new System.Drawing.Point(238, 71);
+            this.lbMessages.Name = "lbMessages";
+            this.lbMessages.Size = new System.Drawing.Size(375, 212);
+            this.lbMessages.TabIndex = 5;
+            // 
+            // btnApply
+            // 
+            this.btnApply.Location = new System.Drawing.Point(504, 392);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(137, 40);
+            this.btnApply.TabIndex = 4;
+            this.btnApply.Text = "Potvrdi izmene";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // tabSendMessage
             // 
@@ -148,11 +202,11 @@
             this.tabSendMessage.Controls.Add(this.btnDeleteText);
             this.tabSendMessage.Controls.Add(this.btnSend);
             this.tabSendMessage.Controls.Add(this.label1);
-            this.tabSendMessage.Controls.Add(this.richTextBox1);
+            this.tabSendMessage.Controls.Add(this.rtbMessage);
             this.tabSendMessage.Location = new System.Drawing.Point(4, 22);
             this.tabSendMessage.Name = "tabSendMessage";
             this.tabSendMessage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSendMessage.Size = new System.Drawing.Size(663, 433);
+            this.tabSendMessage.Size = new System.Drawing.Size(663, 453);
             this.tabSendMessage.TabIndex = 1;
             this.tabSendMessage.Text = "Obavestenje";
             this.tabSendMessage.UseVisualStyleBackColor = true;
@@ -197,6 +251,7 @@
             this.btnDeleteText.TabIndex = 16;
             this.btnDeleteText.Text = "Izbrisi";
             this.btnDeleteText.UseVisualStyleBackColor = true;
+            this.btnDeleteText.Click += new System.EventHandler(this.btnDeleteText_Click);
             // 
             // btnSend
             // 
@@ -217,68 +272,49 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Novo obaveštenje učenicima:";
             // 
-            // richTextBox1
+            // rtbMessage
             // 
-            this.richTextBox1.BackColor = System.Drawing.Color.White;
-            this.richTextBox1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.richTextBox1.Location = new System.Drawing.Point(32, 60);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(600, 194);
-            this.richTextBox1.TabIndex = 13;
-            this.richTextBox1.Text = "";
+            this.rtbMessage.BackColor = System.Drawing.Color.White;
+            this.rtbMessage.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.rtbMessage.Location = new System.Drawing.Point(32, 60);
+            this.rtbMessage.Name = "rtbMessage";
+            this.rtbMessage.Size = new System.Drawing.Size(600, 194);
+            this.rtbMessage.TabIndex = 13;
+            this.rtbMessage.Text = "";
             // 
-            // btnApply
+            // groupBox1
             // 
-            this.btnApply.Location = new System.Drawing.Point(479, 363);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(137, 40);
-            this.btnApply.TabIndex = 4;
-            this.btnApply.Text = "Potvrdi izmene";
-            this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
+            this.groupBox1.Controls.Add(this.btnPlayPause);
+            this.groupBox1.Controls.Add(this.btnNextSong);
+            this.groupBox1.Controls.Add(this.cbMusic);
+            this.groupBox1.Controls.Add(this.btnPath);
+            this.groupBox1.Controls.Add(this.lbPath);
+            this.groupBox1.Controls.Add(this.tbPath);
+            this.groupBox1.Location = new System.Drawing.Point(18, 168);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 172);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Opcije za muziku";
             // 
-            // lbMessages
+            // btnNextSong
             // 
-            this.lbMessages.FormattingEnabled = true;
-            this.lbMessages.Location = new System.Drawing.Point(224, 77);
-            this.lbMessages.Name = "lbMessages";
-            this.lbMessages.Size = new System.Drawing.Size(392, 147);
-            this.lbMessages.TabIndex = 5;
+            this.btnNextSong.Location = new System.Drawing.Point(9, 121);
+            this.btnNextSong.Name = "btnNextSong";
+            this.btnNextSong.Size = new System.Drawing.Size(81, 35);
+            this.btnNextSong.TabIndex = 10;
+            this.btnNextSong.Text = "Sledeća pesma";
+            this.btnNextSong.UseVisualStyleBackColor = true;
+            this.btnNextSong.Click += new System.EventHandler(this.btnNextSong_Click);
             // 
-            // lbDeleteText
+            // btnPlayPause
             // 
-            this.lbDeleteText.AutoSize = true;
-            this.lbDeleteText.Location = new System.Drawing.Point(224, 40);
-            this.lbDeleteText.Name = "lbDeleteText";
-            this.lbDeleteText.Size = new System.Drawing.Size(219, 13);
-            this.lbDeleteText.TabIndex = 6;
-            this.lbDeleteText.Text = "Odaberite obaveštenje koje želite da obrišete";
-            // 
-            // tbPath
-            // 
-            this.tbPath.Location = new System.Drawing.Point(22, 246);
-            this.tbPath.Name = "tbPath";
-            this.tbPath.Size = new System.Drawing.Size(150, 20);
-            this.tbPath.TabIndex = 7;
-            // 
-            // lbPath
-            // 
-            this.lbPath.AutoSize = true;
-            this.lbPath.Location = new System.Drawing.Point(22, 227);
-            this.lbPath.Name = "lbPath";
-            this.lbPath.Size = new System.Drawing.Size(43, 13);
-            this.lbPath.TabIndex = 8;
-            this.lbPath.Text = "Putanja";
-            // 
-            // btnPath
-            // 
-            this.btnPath.Location = new System.Drawing.Point(178, 246);
-            this.btnPath.Name = "btnPath";
-            this.btnPath.Size = new System.Drawing.Size(33, 23);
-            this.btnPath.TabIndex = 9;
-            this.btnPath.Text = "...";
-            this.btnPath.UseVisualStyleBackColor = true;
-            this.btnPath.Click += new System.EventHandler(this.btnPath_Click);
+            this.btnPlayPause.Location = new System.Drawing.Point(113, 121);
+            this.btnPlayPause.Name = "btnPlayPause";
+            this.btnPlayPause.Size = new System.Drawing.Size(81, 35);
+            this.btnPlayPause.TabIndex = 11;
+            this.btnPlayPause.Text = "Pusti/Pauziraj";
+            this.btnPlayPause.UseVisualStyleBackColor = true;
             // 
             // TVRadeMetalacForm
             // 
@@ -299,6 +335,8 @@
             this.tabOptions.PerformLayout();
             this.tabSendMessage.ResumeLayout(false);
             this.tabSendMessage.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -320,13 +358,16 @@
         private System.Windows.Forms.Button btnDeleteText;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtbMessage;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.Label lbDeleteText;
         private System.Windows.Forms.ListBox lbMessages;
         private System.Windows.Forms.Button btnPath;
         private System.Windows.Forms.Label lbPath;
         private System.Windows.Forms.TextBox tbPath;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnPlayPause;
+        private System.Windows.Forms.Button btnNextSong;
     }
 }
 

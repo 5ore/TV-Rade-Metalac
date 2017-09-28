@@ -64,16 +64,27 @@ namespace TVRadeMetalac
 
         private void btnPath_Click(object sender, EventArgs e)
         {
-            OpenFileDialog choofdlog = new OpenFileDialog();
-            choofdlog.Filter = "All Files (*.*)|*.*";
-            choofdlog.FilterIndex = 1;
-            choofdlog.Multiselect = false;
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
 
-            if (choofdlog.ShowDialog() == DialogResult.OK)
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                string sFileName = choofdlog.FileName;
-                tbPath.Text = choofdlog.FileName;
+                tbPath.Text = folderBrowserDialog.SelectedPath;
             }
+        }
+
+        private void btnDeleteText_Click(object sender, EventArgs e)
+        {
+            rtbMessage.Text = "";
+        }
+
+        private void btnNextSong_Click(object sender, EventArgs e)
+        {
+            if(tbPath.Text == string.Empty)
+            {
+                MessageBox.Show("Putanja do foldera sa pesmama je prazna.");
+            }
+            if(cbMusic.Checked)
+                MediaManager.NewSong(tbPath.Text);
         }
     }
 }

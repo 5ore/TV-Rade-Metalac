@@ -15,17 +15,11 @@ namespace TVRadeMetalac
         {
             if(wplayer == null)
             {
-                wplayer = new WMPLib.WindowsMediaPlayer();
-
-                wplayer.URL = path;
-                wplayer.controls.play();
+                PlayNextSong(GetNextSong(path));
             }
             else if (wplayer.playState != WMPLib.WMPPlayState.wmppsPlaying)
             {
-                wplayer = new WMPLib.WindowsMediaPlayer();
-
-                wplayer.URL = path;
-                wplayer.controls.play();
+                PlayNextSong(GetNextSong(path));
             }
         }
 
@@ -35,6 +29,44 @@ namespace TVRadeMetalac
             {
                 wplayer.controls.stop();
             }
+        }
+
+        public static void NewSong(string path)
+        {
+            PlayNextSong(GetNextSong(path));
+        }
+
+        static void PlayNextSong(string path)
+        {
+            wplayer = new WMPLib.WindowsMediaPlayer();
+
+            wplayer.URL = path;
+            wplayer.controls.play();
+        }
+
+        static string GetNextSong(string path)
+        {
+            try
+            {
+                string[] songs = System.IO.Directory.GetFiles(path, "*.mp3");
+                if(songs.Length == 0)
+                    throw new Exception("Nisu pronadjeni fajlovi sa ekstenzijom '.mp3' u odabranom folderu."+
+                        "Probajte neki drugi folder.");
+                return songs[new Random().Next(0, songs.Length)];
+            }
+            catch(Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message);
+                return "";
+            }
+        }
+
+        public static void ChangeMusicState()
+        {
+            if (wplayer.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                wplayer.controls.pause();
+            else
+                wplayer.controls.play();
         }
     }
 }
