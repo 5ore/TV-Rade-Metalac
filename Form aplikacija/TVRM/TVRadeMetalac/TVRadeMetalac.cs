@@ -16,6 +16,7 @@ namespace TVRadeMetalac
 {
     public partial class TVRadeMetalacForm : Form
     {
+
         public TVRadeMetalacForm()
         {
             InitializeComponent();
@@ -142,9 +143,7 @@ namespace TVRadeMetalac
                 MessageBox.Show("Datum brisanja obavestenja mora biti najranije danasnji datum.");
                 return;
             }
-
             InsertMessage(rtbMessage.Text, dtpStart.Value, dtpEnd.Value);
-
         }
 
         /// <summary>
@@ -208,6 +207,7 @@ namespace TVRadeMetalac
                     command.ExecuteNonQuery();
                     GetMessages();
                 }
+                UpdatedMessages();
                 MessageBox.Show("Uspesno ste poslali obavestenje!");
             }
             catch(Exception e)
@@ -226,6 +226,11 @@ namespace TVRadeMetalac
             if (dgvObavestenja.SelectedRows.Count <= 0)
             {
                 MessageBox.Show("Morate odabrati barem jedan red u tabeli za izmenu.");
+                return;
+            }
+            if(dgvObavestenja.SelectedRows[0].Cells[0].Value == null)
+            {
+                MessageBox.Show("Trenutno nema nikakvih obavestenja.");
                 return;
             }
             try
@@ -260,6 +265,7 @@ namespace TVRadeMetalac
                             command.Parameters["@DATUM_BRISANJA"].Value = newMessage.EndDate;
                             command.ExecuteNonQuery();
                             MessageBox.Show("Uspesno ste izmenili obavestenja!");
+                            UpdatedMessages();
                             GetMessages();
                         }
                         else
@@ -286,6 +292,11 @@ namespace TVRadeMetalac
                 MessageBox.Show("Morate odabrati barem jedan red u tabeli za brisanje.");
                 return;
             }
+            if(dgvObavestenja.SelectedRows[0].Cells[0].Value == null)
+            {
+                MessageBox.Show("Trenutno nema nikakvih obavestenja.");
+                return;
+            }
             if (!ReassureBox())
                 return;
             try
@@ -304,6 +315,7 @@ namespace TVRadeMetalac
                     }
                     GetMessages();
                 }
+                UpdatedMessages();
                 MessageBox.Show("Uspesno ste obrisali obavestenja!");
             }
             catch (Exception ex)
@@ -311,5 +323,93 @@ namespace TVRadeMetalac
                 MessageBox.Show(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Sends notification to the database about the change of class types depending on the checked control.(30min or 45min)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void SwitchClassType(object sender, EventArgs e)
+        {
+            try
+            {
+                byte result = (rbNormal.Checked) ? (byte)0 : (byte)1;
+                using (SqlConnection connection =
+                    new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["TVRMConnectionString"].ConnectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(
+                        "UPDATE Novosti SET Rezim30 = " + result.ToString(),connection);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Send the database a notification that the messages have been modified.
+        /// </summary>
+        void UpdatedMessages()
+        {
+            try
+            {
+                using (SqlConnection connection =
+                    new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["TVRMConnectionString"].ConnectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("UPDATE Novosti SET Obavestenja = 1",connection);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        #region AdministrativeCode
+        void KeyCodeAdminOptions(object sender, KeyEventArgs e)
+        {
+            if(e.Control && e.Shift && e.Alt && e.KeyCode == Keys.Multiply)
+            {
+                AdminPrompt adminPrompt = new AdminPrompt();
+            }
+        }
+        void _TEMP_TestMethod(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection connection =
+                    new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["TVRMConnectionString"].ConnectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(
+                        "SELECT * FROM Novosti", connection);
+                    using (SqlDataAdapter sqlDataReader = new SqlDataAdapter(command))
+                    {
+                        string values = "";
+                        DataTable dataTable = new DataTable("Novosti");
+                        sqlDataReader.Fill(dataTable);
+                        foreach (DataRow row in dataTable.Rows)
+                        {
+                            foreach (var cell in row.ItemArray)
+                            {
+                                values += cell.ToString() + " ";
+                            }
+                        }
+                        MessageBox.Show(values);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        #endregion
     }
 }

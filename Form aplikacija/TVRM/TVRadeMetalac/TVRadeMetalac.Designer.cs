@@ -36,6 +36,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabOptions = new System.Windows.Forms.TabPage();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.dgvObavestenja = new System.Windows.Forms.DataGridView();
@@ -55,7 +56,6 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.rtbMessage = new System.Windows.Forms.RichTextBox();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.gbTipoviCasova.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.tabOptions.SuspendLayout();
@@ -108,6 +108,7 @@
             this.rbNormal.TabStop = true;
             this.rbNormal.Text = "45 min";
             this.rbNormal.UseVisualStyleBackColor = true;
+            this.rbNormal.CheckedChanged += new System.EventHandler(this.SwitchClassType);
             // 
             // btnClose
             // 
@@ -145,6 +146,16 @@
             this.tabOptions.TabIndex = 0;
             this.tabOptions.Text = "Kontrole";
             this.tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(486, 494);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(137, 40);
+            this.btnRefresh.TabIndex = 14;
+            this.btnRefresh.Text = "Osveži obaveštenja";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.RefreshDataGrid);
             // 
             // btnDelete
             // 
@@ -342,16 +353,6 @@
             this.rtbMessage.TabIndex = 13;
             this.rtbMessage.Text = "";
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Location = new System.Drawing.Point(486, 494);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(137, 40);
-            this.btnRefresh.TabIndex = 14;
-            this.btnRefresh.Text = "Osveži obaveštenja";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.RefreshDataGrid);
-            // 
             // TVRadeMetalacForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -362,8 +363,10 @@
             this.Controls.Add(this.btnClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "TVRadeMetalacForm";
             this.Text = "TV \"Rade Metalac\"";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyCodeAdminOptions);
             this.gbTipoviCasova.ResumeLayout(false);
             this.gbTipoviCasova.PerformLayout();
             this.mainTabControl.ResumeLayout(false);
